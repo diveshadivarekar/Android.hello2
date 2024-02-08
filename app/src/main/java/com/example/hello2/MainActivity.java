@@ -2,86 +2,49 @@ package com.example.hello2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView resultTextView;
-    private StringBuilder inputStringBuilder;
+    private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultTextView = findViewById(R.id.resultTextView);
-        inputStringBuilder = new StringBuilder();
+        checkBox1 = findViewById(R.id.checkBox1);
+        checkBox2 = findViewById(R.id.checkBox2);
+        checkBox3 = findViewById(R.id.checkBox3);
+        checkBox4 = findViewById(R.id.checkBox4);
+        checkBox5 = findViewById(R.id.checkBox5);
     }
 
-    public void onDigitClick(View view) {
-        Button button = (Button) view;
-        inputStringBuilder.append(button.getText());
-        updateResult();
-    }
+    public void onShowSelectionClick(View view) {
+        StringBuilder selectedCheckboxes = new StringBuilder("Selected Checkboxes: ");
 
-    public void onOperatorClick(View view) {
-        Button button = (Button) view;
-        inputStringBuilder.append(" ").append(button.getText()).append(" ");
-        updateResult();
-    }
-
-    public void onDecimalClick(View view) {
-        if (!inputStringBuilder.toString().contains(".")) {
-            inputStringBuilder.append(".");
-            updateResult();
+        if (checkBox1.isChecked()) {
+            selectedCheckboxes.append("Checkbox 1, ");
         }
-    }
 
-    public void onEqualsClick(View view) {
-        try {
-            String input = inputStringBuilder.toString();
-            String[] values = input.split(" ");
-            double result = evaluateExpression(values);
-            resultTextView.setText(String.valueOf(result));
-            inputStringBuilder.setLength(0);
-            inputStringBuilder.append(result);
-        } catch (Exception e) {
-            resultTextView.setText("Error");
-            inputStringBuilder.setLength(0);
+        if (checkBox2.isChecked()) {
+            selectedCheckboxes.append("Checkbox 2, ");
         }
-    }
 
-    public void onClearClick(View view) {
-        inputStringBuilder.setLength(0);
-        resultTextView.setText("");
-    }
-
-    private void updateResult() {
-        resultTextView.setText(inputStringBuilder.toString());
-    }
-
-    private double evaluateExpression(String[] values) {
-        double num1 = Double.parseDouble(values[0]);
-        String operator = values[1];
-        double num2 = Double.parseDouble(values[2]);
-
-        switch (operator) {
-            case "+":
-                return num1 + num2;
-            case "-":
-                return num1 - num2;
-            case "X":
-                return num1 * num2;
-            case "/":
-                if (num2 != 0) {
-                    return num1 / num2;
-                } else {
-                    throw new ArithmeticException("Division by zero");
-                }
-            default:
-                throw new UnsupportedOperationException("Invalid operator");
+        if (checkBox3.isChecked()) {
+            selectedCheckboxes.append("Checkbox 3, ");
         }
+
+        if (checkBox4.isChecked()) {
+            selectedCheckboxes.append("Checkbox 4, ");
+        }
+
+        if (checkBox5.isChecked()) {
+            selectedCheckboxes.append("Checkbox 5, ");
+        }
+
+        Toast.makeText(this, selectedCheckboxes.toString(), Toast.LENGTH_SHORT).show();
     }
 }

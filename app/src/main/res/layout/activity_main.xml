@@ -7,102 +7,41 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text=""
-        android:textSize="24sp"
-        android:background="#CCCCCC"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:text="Checkbox 1"/>
 
-    <GridLayout
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:columnCount="4"
-        android:rowCount="5">
+        android:text="Checkbox 2"/>
 
-        <!-- Row 1 -->
-        <Button
-            android:layout_columnSpan="3"
-            android:onClick="onClearClick"
-            android:text="C" />
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checkbox 3"/>
 
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checkbox 4"/>
 
-        <Button
-            android:onClick="onOperatorClick"
-            android:text="/" />
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checkbox 5"/>
 
-        <!-- Row 2 -->
-        <Button
-            android:onClick="onDigitClick"
-            android:text="7" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="8" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="9" />
-
-        <Button
-            android:onClick="onOperatorClick"
-            android:text="X" />
-
-        <!-- Row 3 -->
-        <Button
-            android:onClick="onDigitClick"
-            android:text="4" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="5" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="6" />
-
-        <Button
-            android:onClick="onOperatorClick"
-            android:text="-" />
-
-        <!-- Row 3 -->
-        <Button
-            android:onClick="onDigitClick"
-            android:text="1" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="2" />
-
-        <Button
-            android:onClick="onDigitClick"
-            android:text="3" />
-
-        <Button
-            android:onClick="onOperatorClick"
-            android:text="+" />
-
-        <!-- Row 4 -->
-        <Button
-            android:onClick="onDigitClick"
-            android:text="00" />
-        <Button
-            android:onClick="onDigitClick"
-            android:text="0" />
-
-        <Button
-            android:onClick="onDecimalClick"
-            android:text="." />
-
-        <Button
-            android:onClick="onEqualsClick"
-            android:text="=" />
-
-    </GridLayout>
-
+    <Button
+        android:id="@+id/showSelectionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Selection"
+        android:layout_marginTop="16dp"
+        android:onClick="onShowSelectionClick"/>
 </LinearLayout>
