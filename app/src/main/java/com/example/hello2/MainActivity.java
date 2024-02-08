@@ -1,50 +1,46 @@
+// src/com.example.yourappname/MainActivity.java
 package com.example.hello2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
+    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkBox1 = findViewById(R.id.checkBox1);
-        checkBox2 = findViewById(R.id.checkBox2);
-        checkBox3 = findViewById(R.id.checkBox3);
-        checkBox4 = findViewById(R.id.checkBox4);
-        checkBox5 = findViewById(R.id.checkBox5);
+        radioButton1 = findViewById(R.id.radioButton1);
+        radioButton2 = findViewById(R.id.radioButton2);
+        radioButton3 = findViewById(R.id.radioButton3);
+        radioButton4 = findViewById(R.id.radioButton4);
+
+        radioGroup = findViewById(R.id.radioGroup);
     }
 
     public void onShowSelectionClick(View view) {
-        StringBuilder selectedCheckboxes = new StringBuilder("Selected Checkboxes: ");
+        StringBuilder selectedRadioButton = new StringBuilder("Selected Radio Button: ");
 
-        if (checkBox1.isChecked()) {
-            selectedCheckboxes.append("Checkbox 1, ");
+        if (radioButton1.isChecked()) {
+            selectedRadioButton.append(radioButton1.getText().toString());
+        } else if (radioButton2.isChecked()) {
+            selectedRadioButton.append(radioButton2.getText().toString());
+        } else if (radioButton3.isChecked()) {
+            selectedRadioButton.append(radioButton3.getText().toString());
+        } else if (radioButton4.isChecked()) {
+            selectedRadioButton.append(radioButton4.getText().toString());
+        } else {
+            selectedRadioButton.append("None");
         }
 
-        if (checkBox2.isChecked()) {
-            selectedCheckboxes.append("Checkbox 2, ");
-        }
-
-        if (checkBox3.isChecked()) {
-            selectedCheckboxes.append("Checkbox 3, ");
-        }
-
-        if (checkBox4.isChecked()) {
-            selectedCheckboxes.append("Checkbox 4, ");
-        }
-
-        if (checkBox5.isChecked()) {
-            selectedCheckboxes.append("Checkbox 5, ");
-        }
-
-        Toast.makeText(this, selectedCheckboxes.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, selectedRadioButton.toString(), Toast.LENGTH_SHORT).show();
     }
 }

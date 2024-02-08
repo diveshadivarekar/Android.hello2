@@ -7,35 +7,47 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <CheckBox
-        android:id="@+id/checkBox1"
+    <!-- Without RadioGroup -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Checkbox 1"/>
+        android:text="Single Radio Buttons"
+        android:layout_gravity="center"/>
+    <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Radio Button 1"/>
 
-    <CheckBox
-        android:id="@+id/checkBox2"
+    <RadioButton
+        android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Checkbox 2"/>
+        android:text="Radio Button 2"/>
 
-    <CheckBox
-        android:id="@+id/checkBox3"
+    <!-- With RadioGroup -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Checkbox 3"/>
+        android:text="Radio Button inside Radio Group"
+        android:layout_gravity="center"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/checkBox4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Checkbox 4"/>
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"/>
 
-    <CheckBox
-        android:id="@+id/checkBox5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Checkbox 5"/>
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/showSelectionButton"
