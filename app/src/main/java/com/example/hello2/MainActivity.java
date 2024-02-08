@@ -9,33 +9,43 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText editTextUsername, editTextPassword;
+    private EditText editTextStudentName, editTextEnrollmentNumber, editTextDepartment, editTextYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editTextUsername = findViewById(R.id.editTextUsername);
-        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextStudentName = findViewById(R.id.editTextStudentName);
+        editTextEnrollmentNumber = findViewById(R.id.editTextEnrollmentNumber);
+        editTextDepartment = findViewById(R.id.editTextDepartment);
+        editTextYear = findViewById(R.id.editTextYear);
 
-        Button buttonLogin = findViewById(R.id.buttonLogin);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        Button buttonRegister = findViewById(R.id.buttonRegister);
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoginClick(v);
+                onRegisterClick(v);
             }
         });
     }
 
-    public void onLoginClick(View view) {
-        String username = editTextUsername.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+    public void onRegisterClick(View view) {
+        String studentName = editTextStudentName.getText().toString().trim();
+        String enrollmentNumber = editTextEnrollmentNumber.getText().toString().trim();
+        String department = editTextDepartment.getText().toString().trim();
+        String yearStr = editTextYear.getText().toString().trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            showToast("Please enter both username and password.");
+        if (studentName.isEmpty() || enrollmentNumber.isEmpty() || department.isEmpty() || yearStr.isEmpty()) {
+            showToast("Please fill in all fields.");
         } else {
-            showToast("Login successful! Welcome, " + username + "!");
+            int year = Integer.parseInt(yearStr);
+
+            showToast("Registration successful!\n" +
+                    "Name: " + studentName + "\n" +
+                    "Enrollment Number: " + enrollmentNumber + "\n" +
+                    "Department: " + department + "\n" +
+                    "Year: " + year);
         }
     }
 

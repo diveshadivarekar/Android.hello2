@@ -8,24 +8,38 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextStudentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="Student Name"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextEnrollmentNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"/>
+        android:hint="Enrollment Number"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/editTextDepartment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Department"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/editTextYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Year"
+        android:inputType="number"/>
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="onLoginClick"/>
+        android:text="Register"
+        android:onClick="onRegisterClick"/>
 
 </LinearLayout>
