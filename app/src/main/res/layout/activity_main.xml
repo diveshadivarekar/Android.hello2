@@ -1,45 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTextStudentName"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Student Name"
-        android:inputType="text"/>
+        android:padding="85dp"
+        android:text="Circular progrress bar"
+        android:textSize="25sp" />
 
-    <EditText
-        android:id="@+id/editTextEnrollmentNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enrollment Number"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/editTextDepartment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Department"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/editTextYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Year"
-        android:inputType="number"/>
-
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:onClick="onRegisterClick"/>
-
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/circularProgressBar"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="177dp"
+        android:layout_height="101dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:progress="50"
+        android:scrollbarSize="100dp"
+        android:visibility="visible" />
+</RelativeLayout>
