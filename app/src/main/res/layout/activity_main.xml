@@ -3,25 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:layout_centerInParent="true"
-    android:gravity="center_vertical">
+    android:padding="20dp">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="File Downloading..."
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:visibility="gone"/>
+            android:text="Hello world. Toast Example"
+            android:textSize="15sp"/>
 
         <Button
-            android:id="@+id/btnDownload"
+            android:id="@+id/showToastButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvTitle"
-            android:layout_centerHorizontal="true"
-            android:text="Download File"/>
+            android:layout_below="@+id/tv"
+            android:text="Show Toast" />
 </RelativeLayout>
