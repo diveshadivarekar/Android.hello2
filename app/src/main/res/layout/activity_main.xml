@@ -5,38 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-        <CheckBox
-            android:id="@+id/checkboxPizza"
+        <TimePicker
+            android:id="@+id/timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pizza"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerInParent="true"
+            android:timePickerMode="spinner" />
 
-        <CheckBox
-            android:id="@+id/checkboxCoffee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Coffee"
-            android:layout_below="@+id/checkboxPizza"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"/>
-
-        <CheckBox
-            android:id="@+id/checkboxBurger"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Burger"
-            android:layout_below="@+id/checkboxCoffee"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
-            android:id="@+id/btnOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/checkboxBurger"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="Order"/>
 </RelativeLayout>
