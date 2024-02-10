@@ -1,21 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:padding="20dp">
+    tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/tv"
+        <CheckBox
+            android:id="@+id/checkboxPizza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello world. Toast Example"
-            android:textSize="15sp"/>
+            android:text="Pizza"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"/>
+
+        <CheckBox
+            android:id="@+id/checkboxCoffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coffee"
+            android:layout_below="@+id/checkboxPizza"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"/>
+
+        <CheckBox
+            android:id="@+id/checkboxBurger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Burger"
+            android:layout_below="@+id/checkboxCoffee"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"/>
 
         <Button
-            android:id="@+id/showToastButton"
+            android:id="@+id/btnOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv"
-            android:text="Show Toast" />
+            android:layout_below="@+id/checkboxBurger"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Order"/>
 </RelativeLayout>
