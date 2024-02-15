@@ -1,41 +1,27 @@
 package com.example.hello2;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ImageView imageView;
-    private Button changeImageButton;
-
-    private int[] images = {R.drawable.img, R.drawable.img_1};
-    private int currentImageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageView = findViewById(R.id.imageView);
-        changeImageButton = findViewById(R.id.changeImageButton);
+        GridView gridView = findViewById(R.id.gridView);
 
-        setImage(images[currentImageIndex]);
+        String[] buttonLabels = new String[15];
+        for (int i = 0; i < 15; i++) {
+            buttonLabels[i] = "Button " + (i + 1);
+        }
 
-        changeImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Change the image when the button is clicked
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                setImage(images[currentImageIndex]);
-            }
-        });
-    }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, buttonLabels);
 
-    private void setImage(int resourceId) {
-        imageView.setImageResource(resourceId);
+        gridView.setAdapter(adapter);
+
     }
 }
