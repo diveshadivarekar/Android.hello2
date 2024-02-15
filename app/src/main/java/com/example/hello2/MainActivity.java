@@ -2,38 +2,40 @@ package com.example.hello2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView imageView;
+    private Button changeImageButton;
+
+    private int[] images = {R.drawable.img, R.drawable.img_1};
+    private int currentImageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listView = findViewById(R.id.listView);
+        imageView = findViewById(R.id.imageView);
+        changeImageButton = findViewById(R.id.changeImageButton);
 
-        String[] items = {"Android","Java","PHP","Hadoop","Sap","Python","Ajax","C++","Ruby","Rails"};
+        setImage(images[currentImageIndex]);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        changeImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                showToast("" + selectedItem);
+            public void onClick(View view) {
+                // Change the image when the button is clicked
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                setImage(images[currentImageIndex]);
             }
         });
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void setImage(int resourceId) {
+        imageView.setImageResource(resourceId);
     }
 }
