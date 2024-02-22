@@ -1,56 +1,37 @@
+// MainActivity.java
 package com.example.hello2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private EditText urlEditText;
+    private Button navigateButton;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "onCreate: Hello, World!");
+        urlEditText = findViewById(R.id.urlEditText);
+        navigateButton = findViewById(R.id.navigateButton);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: Hello, World!");
-    }
+    public void navigateToUrl(View view) {
+        String url = urlEditText.getText().toString();
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: Hello, World!");
-    }
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "http://" + url;
+        }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: Hello, World!");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: Hello, World!");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: Hello, World!");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart: Hello, World!");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }
