@@ -6,10 +6,19 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/numberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a number"
+        android:inputType="numberDecimal"/>
+
     <Button
-        android:id="@+id/startDialerButton"
+        android:id="@+id/factorialButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Dialer"
-        android:onClick="startDialer"/>
+        android:layout_below="@id/numberEditText"
+        android:layout_marginTop="16dp"
+        android:text="Factorial"
+        android:onClick="calculateFactorial"/>
 </RelativeLayout>
