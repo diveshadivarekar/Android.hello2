@@ -1,36 +1,56 @@
-// MainActivity.java
 package com.example.hello2;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText numberEditText;
+    private TextView statusTextView;
+
+    private BroadcastReceiver powerConnectionReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null) {
+                switch (intent.getAction()) {
+                    case Intent.ACTION_POWER_CONNECTED:
+                        updateStatus("Power connected");
+                        break;
+                    case Intent.ACTION_POWER_DISCONNECTED:
+                        updateStatus("Power disconnected");
+                        break;
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        numberEditText = findViewById(R.id.numberEditText);
+        statusTextView = findViewById(R.id.statusTextView);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        registerReceiver(powerConnectionReceiver, filter);
     }
 
-    public void calculateFactorial(View view) {
-        String numberStr = numberEditText.getText().toString();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        if (!numberStr.isEmpty()) {
-            int number = Integer.parseInt(numberStr);
+        unregisterReceiver(powerConnectionReceiver);
+    }
 
-            Intent intent = new Intent(this, ResultActivity.class);
-
-            intent.putExtra("number", number);
-
-            startActivity(intent);
-        }
+    private void updateStatus(String status) {
+        statusTextView.setText(status);
     }
 }
