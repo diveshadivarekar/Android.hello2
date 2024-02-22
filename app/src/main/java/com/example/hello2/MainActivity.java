@@ -1,4 +1,3 @@
-// MainActivity.java
 package com.example.hello2;
 
 import android.content.Intent;
@@ -6,32 +5,26 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText urlEditText;
-    private Button navigateButton;
+    private Button startDialerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        urlEditText = findViewById(R.id.urlEditText);
-        navigateButton = findViewById(R.id.navigateButton);
+        startDialerButton = findViewById(R.id.startDialerButton);
     }
 
-    public void navigateToUrl(View view) {
-        String url = urlEditText.getText().toString();
+    public void startDialer(View view) {
+        String phoneNumber = "tel:";
 
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            url = "http://" + url;
-        }
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(phoneNumber));
         startActivity(intent);
     }
 }
