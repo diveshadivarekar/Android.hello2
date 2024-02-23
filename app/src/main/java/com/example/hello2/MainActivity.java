@@ -1,79 +1,178 @@
 package com.example.hello2;
 
-import android.Manifest;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.hardware.Camera;
+import android.media.CamcorderProfile;
+import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.IOException;
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int CAMERA_PERMISSION_CODE = 2;
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
-    private ImageView imageView;
+    private Camera mCamera;
+    private SurfaceView mSurfaceView;
+    private SurfaceHolder mSurfaceHolder;
+    private MediaRecorder mMediaRecorder;
+
+    private boolean isRecording = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageView = findViewById(R.id.imageView);
-        Button captureButton = findViewById(R.id.captureButton);
+        mSurfaceView = findViewById(R.id.surfaceView);
+        mSurfaceHolder = mSurfaceView.getHolder();
+        mSurfaceHolder.addCallback(this);
 
-        captureButton.setOnClickListener(new View.OnClickListener() {
+        Button recordButton = findViewById(R.id.recordButton);
+        recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (checkCameraPermission()) {
-                    dispatchTakePictureIntent();
+            public void onClick(View v) {
+                if (isRecording) {
+                    stopRecording();
                 } else {
-                    requestCameraPermission();
+                    startRecording();
                 }
             }
         });
     }
 
-    private boolean checkCameraPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-    }
+    private void startRecording() {
+        try {
+            mCamera = Camera.open();
+            mCamera.setDisplayOrientation(180);
+            mCamera.unlock();
 
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-    }
+            mMediaRecorder = new MediaRecorder();
+            mMediaRecorder.setCamera(mCamera);
+            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+            mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+            mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+            mMediaRecorder.setOutputFile(getOutputMediaFile().toString());
+            mMediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
+            mMediaRecorder.prepare();
+            mMediaRecorder.start();
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            isRecording = true;
+            Toast.makeText(this, "Recording started", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
+    private void stopRecording() {
+        if (mMediaRecorder != null) {
+            mMediaRecorder.stop();
+            mMediaRecorder.reset();
+            mMediaRecorder.release();
+            mMediaRecorder = null;
+            mCamera.lock();
+            mCamera.release();
+            mCamera = null;
+            isRecording = false;
+            Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                dispatchTakePictureIntent();
+    private static android.hardware.Camera.Size getBestPreviewSize(int width, int height,
+                                                                   Camera.Parameters parameters) {
+        android.hardware.Camera.Size bestSize = null;
+        for (android.hardware.Camera.Size size : parameters.getSupportedPreviewSizes()) {
+            if (size.width <= width && size.height <= height) {
+                if (bestSize == null) {
+                    bestSize = size;
+                } else {
+                    int resultArea = bestSize.width * bestSize.height;
+                    int newArea = size.width * size.height;
+                    if (newArea > resultArea) {
+                        bestSize = size;
+                    }
+                }
             }
         }
+        return bestSize;
+    }
+
+    private static boolean isCameraAvailable(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (isCameraAvailable(this)) {
+            mCamera = Camera.open();
+            Camera.Parameters parameters = mCamera.getParameters();
+            android.hardware.Camera.Size bestSize = getBestPreviewSize(mSurfaceView.getWidth(),
+                    mSurfaceView.getHeight(), parameters);
+            parameters.setPreviewSize(bestSize.width, bestSize.height);
+            mCamera.setParameters(parameters);
+
+            try {
+                mCamera.setPreviewDisplay(mSurfaceHolder);
+                mCamera.startPreview();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        if (mSurfaceHolder.getSurface() == null) {
+            return;
+        }
+
+        try {
+            mCamera.stopPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mCamera.setPreviewDisplay(mSurfaceHolder);
+            mCamera.startPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        if (isRecording) {
+            stopRecording();
+        } else {
+            mCamera.stopPreview();
+            mCamera.release();
+        }
+    }
+
+    private static java.io.File getOutputMediaFile() {
+        java.io.File mediaStorageDir = new java.io.File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        return new java.io.File(mediaStorageDir.getPath() +
+                java.io.File.separator + "VID_" +
+                System.currentTimeMillis() + ".mp4");
     }
 }
