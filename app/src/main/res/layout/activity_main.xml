@@ -1,37 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version= "1.0" encoding = "utf-8" ?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    android:layout_width="match_parent"
+    >
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Divesh Software"
-        android:gravity="center"
-        android:textSize="25sp" />
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:hint="Username" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextUsername"
-        android:layout_marginTop="16dp"
-        android:inputType="textPassword"
-        android:hint="Password" />
-
-    <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="16dp"
-        android:text="Login" />
+        android:text=""/>
 
-</RelativeLayout>
+</ScrollView>
