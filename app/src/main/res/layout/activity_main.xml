@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
-
-
+    tools:context=".MainActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Latitude:" />
-
-    <TextView
-        android:id="@+id/latTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Latitude will be here! " />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Longitude:" />
-
-    <TextView
-        android:id="@+id/lonTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Longitude will be here! " />
-
-</LinearLayout>
+        android:text="Shake your device!"
+        android:textStyle="bold"
+        android:textSize="40sp"/>
+</RelativeLayout>
