@@ -1,57 +1,59 @@
 package com.example.hello2;
-import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
-import android.content.Context;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.widget.RelativeLayout;
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
-    private SensorManager sensorManager;
-    private Sensor accelerometer;
-    private RelativeLayout mainLayout;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Set;
+public class MainActivity extends Activity {
+    private ListView listView;
+    private BluetoothAdapter ba;
+    private Set<BluetoothDevice> pairedDevices;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainLayout = findViewById(R.id.main_layout);
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager != null) {
-            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        ba = BluetoothAdapter.getDefaultAdapter();
+        listView = findViewById(R.id.listView);
+    }
+    @SuppressLint("MissingPermission")
+    public void turnOn(View v) {
+        if(!ba.isEnabled()) {
+            Intent intentOn = new
+                    Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intentOn, 0);
+            Toast.makeText(getApplicationContext(), "Turned ON", Toast.LENGTH_SHORT).show();
         }
+        else {
+            Toast.makeText(getApplicationContext(), "Already ON", Toast.LENGTH_SHORT).show();
+        } }
+    @SuppressLint("MissingPermission")
+    public void turnOff(View v) {
+        ba.disable();
+        Toast.makeText(getApplicationContext(), "Turned OFF", Toast.LENGTH_SHORT).show();
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    @SuppressLint("MissingPermission")
+    public void getVisible(View v) {
+        Intent intentVisible = new
+                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        startActivityForResult(intentVisible, 0);
+    }
+    @SuppressLint("MissingPermission")
+    public void listDevices(View v) {
+        pairedDevices = ba.getBondedDevices();
+        ArrayList<String> list = new ArrayList<String>();
+        for(BluetoothDevice b : pairedDevices) {
+            list.add(b.getName());
         }
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (sensorManager != null) {
-            sensorManager.unregisterListener(this);
-        }
-    }
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        float[] values = event.values;
-        float x = values[0];
-        float y = values[1];
-        float z = values[2];
-        if (Math.abs(x) > 10.0f || Math.abs(y) > 10.0f || Math.abs(z) > 10.0f) {
-            changeBackgroundColor();
-        }
-    }
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-    private void changeBackgroundColor() {
-        int color = Color.argb(255, (int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() *
-                256));
-        mainLayout.setBackgroundColor(color);
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
     }
 }
