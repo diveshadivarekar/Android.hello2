@@ -4,39 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bluetooth Example"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-    <Button
-        android:layout_width="wrap_content"
+        android:text="To:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <EditText
+        android:id="@+id/edit_text_to"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Turn On"
-        android:onClick="turnOn"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Visible"
-        android:onClick="getVisible"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List Devices"
-        android:onClick="listDevices"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Turn Off"
-        android:onClick="turnOff"/>
+        android:inputType="textEmailAddress" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Paired Devices"/>
-    <ListView android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="Subject:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <EditText
+        android:id="@+id/edit_text_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailSubject" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Message:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <EditText
+        android:id="@+id/edit_text_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="10" />
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="send" />
 </LinearLayout>
